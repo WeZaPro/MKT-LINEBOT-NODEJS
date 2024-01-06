@@ -37,7 +37,7 @@ exports.create = (req, res) => {
       if (!userAudienceData) {
         console.log("Not Found ipAddress from Audience--> ");
         //saveData(userGtm, res);
-        res.send("NOT FOUND DATA IN DB GTM");
+        res.send("NOT FOUND DATA IN DB AUDIENCE");
       } else {
         const packDataUserGTMtoSave = new UserGtm({
           botUserId: req.body.botUserId, //req.body

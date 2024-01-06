@@ -59,21 +59,21 @@ exports.create = (req, res) => {
         console.log("SAVE DATA to UserGtm--> ", userAudienceData);
         //saveData(packDataUserGTMtoSave);
 
-        res.send("FOUND DATA IN DB GTM");
-        // UserGtm.save(packDataUserGTMtoSave)
-        //   .then((data) => {
-        //     console.log("save data OK-->");
-        //     console.log("send data to GA4-->"); //create method send ga4
-        //     //sendDataToGA4(packDataUserGTMtoSave);
-        //     res.send({ message: "save data ok", sendData: data });
-        //   })
-        //   .catch((err) => {
-        //     res.status(500).send({
-        //       message:
-        //         err.message ||
-        //         "Some error occurred while creating the Tutorial.",
-        //     });
-        //   });
+        //res.send("FOUND DATA IN DB GTM");
+        UserGtm.save(packDataUserGTMtoSave)
+          .then((data) => {
+            console.log("save data OK-->");
+            console.log("send data to GA4-->"); //create method send ga4
+            //sendDataToGA4(packDataUserGTMtoSave);
+            res.send({ message: "save data ok", sendData: data });
+          })
+          .catch((err) => {
+            res.status(500).send({
+              message:
+                err.message ||
+                "Some error occurred while creating the Tutorial.",
+            });
+          });
       }
     }
   );

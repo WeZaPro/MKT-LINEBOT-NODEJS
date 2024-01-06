@@ -1,6 +1,6 @@
 const db = require("../models");
 
-const userGtm = db.userGtms;
+const UserGtm = db.userGtms;
 const userAudience = db.userAudience;
 
 // Create and Save a new Tutorial
@@ -12,7 +12,7 @@ exports.create = async (req, res) => {
   //   return;
   // }
   const date = new Date();
-  // const userGtm = new userGtm({
+  // const userGtm = new UserGtm({
   //   botUserId: req.body.botUserId,
   //   userId: req.body.userId,
   //   client_id: req.body.client_id,
@@ -31,7 +31,7 @@ exports.create = async (req, res) => {
   // check cookiesUid in db
   //console.log("botUserId ==> ", req.body.botUserId);
   //res.send("TEST CHECK ");
-  userAudience.findOne(
+  await userAudience.findOne(
     { ipAddress: req.body.ipAddressWebStart },
     function (err, userAudienceData) {
       console.log("userAudienceData--> ", userAudienceData);
@@ -40,7 +40,7 @@ exports.create = async (req, res) => {
         //saveData(userGtm, res);
         res.send("NOT FOUND DATA IN DB AUDIENCE");
       } else {
-        const packDataUserGTMtoSave = new userGtm({
+        const packDataUserGTMtoSave = new UserGtm({
           // botUserId: req.body.botUserId, //req.body
           // userId: userAudienceData.userId,
           // lineUid: req.body.lineUid, //req.body
@@ -74,34 +74,29 @@ exports.create = async (req, res) => {
         console.log("SAVE DATA to UserGtm--> ", userAudienceData);
         //saveData(packDataUserGTMtoSave);
 
-        packDataUserGTMtoSave.save().then((dataSave) => {
-          res.send({ message: "save data ok", sendData: dataSave });
-        });
-
         //res.send("FOUND DATA IN DB GTM");
-        // userGtm
-        //   .save(packDataUserGTMtoSave)
-        //   .then((data) => {
-        //     console.log("save data OK-->", data);
-        //     console.log("send data to GA4-->"); //create method send ga4
-        //     //sendDataToGA4(packDataUserGTMtoSave);
-        //     // res.send({ message: "save data ok", sendData: data });
-        //     res.send("SAVE DATA OK");
-        //   })
-        //   .catch((err) => {
-        //     res.status(500).send({
-        //       message:
-        //         err.message ||
-        //         "Some error occurred while creating the Tutorial.",
-        //     });
-        //   });
+        UserGtm.save(packDataUserGTMtoSave)
+          .then((data) => {
+            console.log("save data OK-->", data);
+            console.log("send data to GA4-->"); //create method send ga4
+            //sendDataToGA4(packDataUserGTMtoSave);
+            // res.send({ message: "save data ok", sendData: data });
+            res.send("SAVE DATA OK");
+          })
+          .catch((err) => {
+            res.status(500).send({
+              message:
+                err.message ||
+                "Some error occurred while creating the Tutorial.",
+            });
+          });
       }
     }
   );
 };
 
 // const saveData = (userGtm, res) => {
-//   userGtm.save(userGtm)
+//   UserGtm.save(userGtm)
 //     .then((data) => {
 //       console.log("save data OK-->");
 //       console.log("send data to GA4-->"); //create method send ga4
@@ -126,8 +121,7 @@ exports.findAll = (req, res) => {
     ? { title: { $regex: new RegExp(title), $options: "i" } }
     : {};
 
-  userGtm
-    .find(condition)
+  UserGtm.find(condition)
     .then((data) => {
       res.send(data);
     })
@@ -147,7 +141,7 @@ exports.findOne = async (req, res) => {
     botUserId: id,
   };
 
-  userGtm.findOne(queryData, function (err, data) {
+  UserGtm.findOne(queryData, function (err, data) {
     if (!data) {
       console.log("NO DATA GTM IN NODE API-->SAVE DATA");
       // res.status(404).send({ message: "Not found lineUid " + id });
@@ -171,8 +165,7 @@ exports.update = (req, res) => {
 
   const id = req.params.id;
 
-  userGtm
-    .findByIdAndUpdate(id, req.body, { useFindAndModify: false })
+  UserGtm.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
     .then((data) => {
       if (!data) {
         res.status(404).send({
@@ -191,8 +184,7 @@ exports.update = (req, res) => {
 exports.delete = (req, res) => {
   const id = req.params.id;
 
-  userGtm
-    .findByIdAndRemove(id, { useFindAndModify: false })
+  UserGtm.findByIdAndRemove(id, { useFindAndModify: false })
     .then((data) => {
       if (!data) {
         res.status(404).send({
@@ -213,8 +205,7 @@ exports.delete = (req, res) => {
 
 // Delete all Tutorials from the database.
 exports.deleteAll = (req, res) => {
-  userGtm
-    .deleteMany({})
+  UserGtm.deleteMany({})
     .then((data) => {
       res.send({
         message: `${data.deletedCount} Tutorials were deleted successfully!`,
@@ -230,8 +221,7 @@ exports.deleteAll = (req, res) => {
 
 // Find all published Tutorials
 exports.findAllPublished = (req, res) => {
-  userGtm
-    .find({ published: true })
+  UserGtm.find({ published: true })
     .then((data) => {
       res.send(data);
     })

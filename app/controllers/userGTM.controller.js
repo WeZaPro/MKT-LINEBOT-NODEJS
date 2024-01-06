@@ -56,29 +56,43 @@ exports.create = (req, res) => {
         console.log("Found ipAddress from Audience--> ");
         console.log("PACK packDataUserGTMtoSave--> ", packDataUserGTMtoSave);
         console.log("SAVE DATA to UserGtm--> ", userAudienceData);
-        saveData(packDataUserGTMtoSave);
+        //saveData(packDataUserGTMtoSave);
 
         //res.send("FOUND DATA IN DB");
+        UserGtm.save(packDataUserGTMtoSave)
+          .then((data) => {
+            console.log("save data OK-->");
+            console.log("send data to GA4-->"); //create method send ga4
+            sendDataToGA4(packDataUserGTMtoSave);
+            res.send({ message: "save data ok", sendData: data });
+          })
+          .catch((err) => {
+            res.status(500).send({
+              message:
+                err.message ||
+                "Some error occurred while creating the Tutorial.",
+            });
+          });
       }
     }
   );
 };
 
-const saveData = (userGtm, res) => {
-  UserGtm.save(userGtm)
-    .then((data) => {
-      console.log("save data OK-->");
-      console.log("send data to GA4-->"); //create method send ga4
-      sendDataToGA4(userGtm);
-      res.send({ message: "save data ok", sendData: data });
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message:
-          err.message || "Some error occurred while creating the Tutorial.",
-      });
-    });
-};
+// const saveData = (userGtm, res) => {
+//   UserGtm.save(userGtm)
+//     .then((data) => {
+//       console.log("save data OK-->");
+//       console.log("send data to GA4-->"); //create method send ga4
+//       sendDataToGA4(userGtm);
+//       res.send({ message: "save data ok", sendData: data });
+//     })
+//     .catch((err) => {
+//       res.status(500).send({
+//         message:
+//           err.message || "Some error occurred while creating the Tutorial.",
+//       });
+//     });
+// };
 
 // user audience =====> end
 

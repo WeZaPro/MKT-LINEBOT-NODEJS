@@ -38,7 +38,7 @@ exports.create = (req, res) => {
         console.log("Not Found ipAddress from Audience--> ");
         //saveData(userGtm, res);
       } else {
-        const packDataUserGTMtoSave = {
+        const packDataUserGTMtoSave = new UserGtm({
           botUserId: req.body.botUserId, //req.body
           userId: userAudienceData.userId,
           lineUid: req.body.lineUid, //req.body
@@ -52,7 +52,7 @@ exports.create = (req, res) => {
           timeStamp: date,
           utm_source: userAudienceData.utm_source,
           utm_medium: userAudienceData.utm_medium,
-        };
+        });
         console.log("Found ipAddress from Audience--> ");
         console.log("PACK packDataUserGTMtoSave--> ", packDataUserGTMtoSave);
         console.log("SAVE DATA to UserGtm--> ", userAudienceData);

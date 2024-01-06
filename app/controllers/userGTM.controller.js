@@ -29,7 +29,7 @@ exports.create = (req, res) => {
 
   // check cookiesUid in db
   //console.log("botUserId ==> ", req.body.botUserId);
-  res.send("TEST CHECK ");
+  //res.send("TEST CHECK ");
   userAudience.findOne(
     { ipAddress: req.body.ipAddressWebStart },
     function (err, userAudienceData) {

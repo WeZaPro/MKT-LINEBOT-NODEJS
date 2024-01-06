@@ -41,33 +41,19 @@ exports.create = async (req, res) => {
         res.send("NOT FOUND DATA IN DB AUDIENCE");
       } else {
         const packDataUserGTMtoSave = new userGtm({
-          // botUserId: req.body.botUserId, //req.body
-          // userId: userAudienceData.userId,
-          // lineUid: req.body.lineUid, //req.body
-          // lineDisplayName: req.body.lineDisplayName, //req.body
-          // client_id: userAudienceData.client_id,
-          // userAgent: userAudienceData.userAgent,
-          // ipAddressWebStart: req.body.ipAddressWebStart, //req.body
-          // ipAddressChatLine: req.body.ipAddressChatLine, //req.body
-          // uniqueEventId: userAudienceData.uniqueEventId,
-          // sessionId: userAudienceData.sessionId,
-          // timeStamp: date,
-          // utm_source: userAudienceData.utm_source,
-          // utm_medium: userAudienceData.utm_medium,
-
           botUserId: req.body.botUserId, //req.body
-          userId: req.body.userId,
+          userId: userAudienceData.userId,
           lineUid: req.body.lineUid, //req.body
           lineDisplayName: req.body.lineDisplayName, //req.body
-          client_id: req.body.client_id,
-          userAgent: req.body.userAgent,
+          client_id: userAudienceData.client_id,
+          userAgent: userAudienceData.userAgent,
           ipAddressWebStart: req.body.ipAddressWebStart, //req.body
           ipAddressChatLine: req.body.ipAddressChatLine, //req.body
-          uniqueEventId: req.body.uniqueEventId,
-          sessionId: req.body.sessionId,
-          utm_source: req.body.utm_source,
-          utm_medium: req.body.utm_medium,
+          uniqueEventId: userAudienceData.uniqueEventId,
+          sessionId: userAudienceData.sessionId,
           timeStamp: date,
+          utm_source: userAudienceData.utm_source,
+          utm_medium: userAudienceData.utm_medium,
         });
         console.log("Found ipAddress from Audience--> ");
         console.log("PACK packDataUserGTMtoSave--> ", packDataUserGTMtoSave);

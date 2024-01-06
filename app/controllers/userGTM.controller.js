@@ -63,7 +63,7 @@ exports.create = (req, res) => {
           .then((data) => {
             console.log("save data OK-->");
             console.log("send data to GA4-->"); //create method send ga4
-            sendDataToGA4(packDataUserGTMtoSave);
+            //sendDataToGA4(packDataUserGTMtoSave);
             res.send({ message: "save data ok", sendData: data });
           })
           .catch((err) => {

@@ -49,6 +49,7 @@ exports.createUserAudience = (req, res) => {
 
     // { userId: "1704613370490" },
     function (err, _ipAddress) {
+      console.log("FIND DATA*********==>", _ipAddress);
       if (!_ipAddress) {
         console.log("Not Found botUserId ==>SAVE DATA ");
         _userAudience

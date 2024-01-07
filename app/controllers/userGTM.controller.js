@@ -32,7 +32,7 @@ exports.create = async (req, res) => {
   //console.log("botUserId ==> ", req.body.botUserId);
   //res.send("TEST CHECK ");
   userAudience.findOne(
-    { ipAddress: req.body.ipAddressWebStart },
+    { ipAddress: req.body.ipAddress },
     function (err, userAudienceData) {
       console.log("userAudienceData--> ", userAudienceData);
       if (!userAudienceData) {

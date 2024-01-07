@@ -42,7 +42,21 @@ exports.createUserAudience = (req, res) => {
     function (err, _ipAddress) {
       if (!_ipAddress) {
         console.log("Not Found botUserId ==>SAVE DATA ");
-        saveDataUserAudience(_userAudience, res);
+        _userAudience
+          .save()
+          .then((data) => {
+            console.log("save-> ", data);
+            res.send(data);
+          })
+          .catch((err) => {
+            res.status(500).send({
+              message:
+                err.message ||
+                "Some error occurred while creating the Tutorial.",
+            });
+          });
+
+        //saveDataUserAudience(_userAudience, res);
       } else {
         console.log("Found botUserId ==>IGNORE ");
         res.send("FOUND DATA IN DB");
@@ -51,21 +65,21 @@ exports.createUserAudience = (req, res) => {
   );
 };
 
-const saveDataUserAudience = (setData, res) => {
-  console.log("saveDataUserAudience-> ", setData);
-  userAudience
-    .save(setData)
-    .then((data) => {
-      console.log("save-> ", data);
-      res.send(data);
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message:
-          err.message || "Some error occurred while creating the Tutorial.",
-      });
-    });
-};
+// const saveDataUserAudience = (setData, res) => {
+//   console.log("saveDataUserAudience-> ", setData);
+//   userAudience
+//     .save(setData)
+//     .then((data) => {
+//       console.log("save-> ", data);
+//       res.send(data);
+//     })
+//     .catch((err) => {
+//       res.status(500).send({
+//         message:
+//           err.message || "Some error occurred while creating the Tutorial.",
+//       });
+//     });
+// };
 
 // Find a single  ip address in audence
 exports.findOneAudience = async (req, res) => {

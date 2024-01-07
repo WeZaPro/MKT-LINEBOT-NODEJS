@@ -43,7 +43,9 @@ exports.createUserAudience = (req, res) => {
   // check cookiesUid in db
   console.log("userId ==> ", req.body.userId);
   userAudience.findOne(
-    { ipAddress: req.body.ipAddress },
+    // Todo Filter from audience เปลี่ยนจาก IP เป็น userId (cookies) เพราะใช้ ip มันเปลี่ยนไปมา น่าจะมาจาก router wifi
+    // { ipAddress: req.body.ipAddress },
+    { userId: req.body.userId },
     function (err, _ipAddress) {
       if (!_ipAddress) {
         console.log("Not Found botUserId ==>SAVE DATA ");

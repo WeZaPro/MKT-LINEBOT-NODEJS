@@ -31,8 +31,9 @@ exports.create = async (req, res) => {
   // check cookiesUid in db
   //console.log("botUserId ==> ", req.body.botUserId);
   //res.send("TEST CHECK ");
+  console.log("req.body.ipAddressWebStart--> ", req.body.ipAddressWebStart);
   userAudience.findOne(
-    { ipAddress: req.body.ipAddress },
+    { ipAddress: req.body.ipAddressWebStart },
     function (err, userAudienceData) {
       console.log("userAudienceData--> ", userAudienceData);
       if (!userAudienceData) {

@@ -31,7 +31,10 @@ exports.create = async (req, res) => {
   // check cookiesUid in db
   //console.log("botUserId ==> ", req.body.botUserId);
   //res.send("TEST CHECK ");
-  console.log("req.body.ipAddressWebStart--> ", req.body.ipAddressWebStart);
+  console.log(
+    "req.body.ipAddressWebStart from queryString--> ",
+    req.body.ipAddressWebStart
+  );
   userAudience.findOne(
     { ipAddress: req.body.ipAddressWebStart },
     function (err, userAudienceData) {
@@ -62,7 +65,7 @@ exports.create = async (req, res) => {
         //saveData(packDataUserGTMtoSave);
 
         packDataUserGTMtoSave.save().then((dataSave) => {
-          sendDataToGA4(dataSave);
+          sendDataToGA4(dataSave, res);
           res.send({ message: "save data ok", sendData: dataSave });
         });
       }
@@ -213,7 +216,7 @@ exports.findAllPublished = (req, res) => {
     });
 };
 
-const sendDataToGA4 = (userGtm) => {
+const sendDataToGA4 = (userGtm, res) => {
   const axios = require("axios");
   //console.log("GA4 req.body--> ", req.body);
   let data = JSON.stringify({

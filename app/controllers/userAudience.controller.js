@@ -12,6 +12,10 @@ exports.createUserAudience = (req, res) => {
     "Path createUserAudience req.body.utm_medium---> ",
     req.body.utm_medium
   );
+  console.log(
+    "Path createUserAudience req.body.utm_term---> ",
+    req.body.utm_term
+  );
 
   console.log(
     "Path createUserAudience req.body.ipAddress---> ",
@@ -32,6 +36,7 @@ exports.createUserAudience = (req, res) => {
     sessionId: req.body.sessionId,
     utm_source: req.body.utm_source,
     utm_medium: req.body.utm_medium,
+    utm_term: req.body.utm_term,
     timeStamp: date,
   });
 

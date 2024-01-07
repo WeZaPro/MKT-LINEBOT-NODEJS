@@ -10,6 +10,7 @@ module.exports = (mongoose) => {
       timeStamp: String,
       utm_source: String,
       utm_medium: String,
+      utm_term: String,
     },
     { timestamps: true }
   );

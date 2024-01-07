@@ -58,6 +58,7 @@ exports.create = async (req, res) => {
           timeStamp: date,
           utm_source: userAudienceData.utm_source,
           utm_medium: userAudienceData.utm_medium,
+          utm_term: userAudienceData.utm_term,
         });
         console.log("Found ipAddress from Audience--> ");
         console.log("PACK packDataUserGTMtoSave--> ", packDataUserGTMtoSave);
@@ -236,7 +237,7 @@ const sendDataToGA4 = (userGtm, res) => {
           campaign: "START-LINE-SEND-API-FROM-NODE",
           source: userGtm.utm_source,
           medium: userGtm.utm_medium,
-          term: "LineStartChat",
+          term: userGtm.utm_term,
           content: "Check Conversion from LineStart",
           client_id: userGtm.client_id,
           user_id: userGtm.userId,
@@ -295,7 +296,7 @@ exports.ga4 = (req, res) => {
           campaign: "START-LINE-SEND-API-FROM-NODE",
           source: req.body.utm_source,
           medium: req.body.utm_medium,
-          term: "LineStartChat",
+          term: req.body.utm_term,
           content: "Check Conversion from LineStart",
           client_id: req.body.client_id,
           user_id: req.body.user_id,

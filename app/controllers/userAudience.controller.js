@@ -45,7 +45,7 @@ exports.createUserAudience = (req, res) => {
   userAudience.findOne(
     // Todo Filter from audience เปลี่ยนจาก IP เป็น userId (cookies) เพราะใช้ ip มันเปลี่ยนไปมา น่าจะมาจาก router wifi
     // { ipAddress: req.body.ipAddress },
-    { ipAddress: req.body.ipAddressWebStart },
+    { ipAddress: req.body.ipAddress }, // from gtm api
 
     // { userId: "1704613370490" },
     function (err, _ipAddress) {
